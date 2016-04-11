@@ -13,5 +13,8 @@ public class Main {
         //Переведём число с 10-тичной системы в 11-тиричную.
         //95842 - число в десятичной системе.     11 - система, в которую переводим
         System.out.println(decimal.DecimalTo(95842, 11)); // Получаем СТРОКУ STRING в выбранной (11) системе
+
+        //Пример перевода 16-ричной системы в двоичную
+        System.out.println(decimal.DecimalTo(decimal.ToDecimal("FBD", 16), 2));
     }
 }
