@@ -1,44 +1,38 @@
-import java.util.List;
-import java.util.ArrayList;
-import java.util.Collections;
+import java.util.*;
 
 public class Decimal {
-
-    // 1. Порефакторить
-    // 2. Добавить возможность перевода чисел с плавающей точкой
 
     // Перевод любой системы с 2 до 16 в десятичную
     public int ToDecimal(String number, int system) {
 
+        Map<Character, Integer> map = new HashMap<>();
+        int k = 0;
+        for (char j = '0';j <= '9' ;j++){
+            map.put(j,k++);
+        }
+        for (char i = 'A'; i < 'G'; i++) {
+            map.put(i, k++);
+        }
+        System.out.println(map);
         // Разбиваем строку на символы и создаём массив Integer
         List<Integer> arrayInt = new ArrayList<>();
         for (int i = 0; i < number.length(); i++) {
-            int symbol = number.charAt(i);
-            if (symbol < 10) {
-                arrayInt.add(symbol);
-            } else if (symbol == 'A') {
-                arrayInt.add(10);
-            } else if (symbol == 'B') {
-                arrayInt.add(11);
-            } else if (symbol == 'C') {
-                arrayInt.add(12);
-            } else if (symbol == 'D') {
-                arrayInt.add(13);
-            } else if (symbol == 'E') {
-                arrayInt.add(14);
-            } else if (symbol == 'F') {
-                arrayInt.add(15);
+            char symbol = number.charAt(i);
+            for (Map.Entry<Character, Integer> c : map.entrySet()) {
+                if (symbol == c.getKey()) {
+                    arrayInt.add(c.getValue());
+                }
             }
         }
 
-        // Переводим систему в десятичную
-        Collections.reverse(arrayInt);
-        int sum = 0;
-        for (int i = 0; i < arrayInt.size(); i++) {
-            sum += arrayInt.get(i) * (int) Math.pow(system, i);
+            // Переводим систему в десятичную
+            Collections.reverse(arrayInt);
+            int sum = 0;
+            for (int i = 0; i < arrayInt.size(); i++) {
+                sum += arrayInt.get(i) * (int) Math.pow(system, i);
+            }
+            return sum;
         }
-        return sum;
-    }
 
     // Перевод из десятичной в любую выбранную систему с 2 до 16
     public String DecimalTo(int number, int system) {
